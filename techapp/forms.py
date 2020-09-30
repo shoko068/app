@@ -42,7 +42,7 @@ class LoginForm(AuthenticationForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['score', 'comment',"info"]
+        fields = ['score', 'comment', 'info']
 
 class SampleForm(forms.Form):
     tags = forms.ModelMultipleChoiceField(
