@@ -8,6 +8,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_HOST = ''
+EMAIL_HOST_USER = 'メールアドレス'
+EMAIL_HOST_PASSWORD = 'アプリ パスワード'
+EMAIL_PORT = 587
+EMAIL USE_SSL = True
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . views import ContactFormView, ContactResultView
 
 app_name = 'techapp'
 
@@ -10,5 +11,7 @@ urlpatterns = [
     path('signup/', views.SignUp.as_view(), name='signup'),
     path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
+    path('contact/', ContactFormView.as_view(), name='contact_form'),
+    path('contact/result/', ContactResultView.as_view(), name='contact_result'),
       # これを追加
 ]

@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView
+from django.views.generic.edit import FormView
 
 # [3-4]（１）　インポートの追加ここから
 from .models import Pref, Category, Review
-from .forms import SearchForm, SignUpForm,LoginForm,ReviewForm,SampleForm
+from .forms import SearchForm, SignUpForm, LoginForm, ReviewForm, SampleForm, ContactForm
 import json
 import requests
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView,LogoutView
 from django.db.models import Avg
 from django.contrib import messages
+from django.urls import reverse_lazy
+
+
 # [3-4]（１）　インポートの追加ここまで
 
 # [3-4]（２）　グローバル関数の追加ここから
@@ -213,5 +217,22 @@ class Login(LoginView):
 
 class Logout(LogoutView):
     template_name = 'techapp/logout.html'
+
+class ContactFormView(FormView):
+    template_name='contact/contact_form.html'
+    form_class=ContactForm
+    success_url=reverse_lazy('contact_result')
+
+    def form_valid(self,form):
+        form.send_email()
+        return super().form_valid(form)
+
+class ContactResultView(TemplateView):
+    template_name='contact/contact_result.html'
+
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        context['success']="お問い合わせは正常に送信されました。"
+        return context
 
 # [3-4]（４）　Search関数の追加、その他の関数の追加ここまで
