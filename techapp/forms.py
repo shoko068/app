@@ -3,9 +3,10 @@ from .models import Category, Pref, User, Review,Tag
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .widgets import CustomCheckboxSelectMultiple
 from django.conf import settings
+"""
 from django.core.mail import BadHeadError, send_mail
 from django.http import HttpResponse
-
+"""
 
 class SearchForm(forms.Form):
     selected_pref = forms.ModelChoiceField(

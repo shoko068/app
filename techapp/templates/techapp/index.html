@@ -36,6 +36,9 @@
                 <li>
                     <a class="nav-item nav-link" href="{% url 'techapp:signup' %}">新規ユーザ登録</a>
                 </li>
+                <li>
+                    {% include 'techapp/contact_form.html' %}
+                </li>
             {% endif %}
             </ul>
         </div>
