@@ -4,7 +4,7 @@ from django.views.generic.edit import FormView
 
 # [3-4]（１）　インポートの追加ここから
 from .models import Pref, Category, Review
-from .forms import SearchForm, SignUpForm, LoginForm, ReviewForm, SampleForm, ContactForm
+from .forms import SearchForm, SignUpForm, LoginForm, ReviewForm, SampleForm, ContactForm, ProfileForm, UserCreateForm
 import json
 import requests
 from django.contrib.auth import login, authenticate
@@ -12,9 +12,6 @@ from django.contrib.auth.views import LoginView,LogoutView
 from django.db.models import Avg
 from django.contrib import messages
 from django.urls import reverse_lazy
-
-
-# [3-4]（１）　インポートの追加ここまで
 
 # [3-4]（２）　グローバル関数の追加ここから
 # グローバル関数として定義。どこからもkeyidを呼び出すことが出来る。
@@ -235,4 +232,25 @@ class ContactResultView(TemplateView):
         context['success']="お問い合わせは正常に送信されました。"
         return context
 
-# [3-4]（４）　Search関数の追加、その他の関数の追加ここまで
+#ここからユーザー登録内容拡張の為に追加した場所
+def register_user(request):
+    user_form = UserCreateForm(request.POST or None)
+    profile_form = ProfileForm(request.POST or None)
+    if request.method == "POST" and user_form.is_valid() and profile_form.is_valid():
+
+        # Userモデルの処理。ログインできるようis_activeをTrueにし保存
+        user = user_form.save(commit=False)
+        user.is_active = True
+        user.save()
+
+        # Profileモデルの処理。↑のUserモデルと紐づけましょう。
+        profile = profile_form.save(commit=False)
+        profile.user = user
+        profile.save()
+        return redirect("testapp:index")
+
+    context = {
+        "user_form": user_form,
+        "profile_form": profile_form,
+    }
+    return render(request, 'techapp/user_create.html', context)

@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Category, Pref, Review, Tag
+from .models import Category, Pref, Review, Tag, Profile
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
 
 @admin.register(Category)
@@ -21,4 +23,16 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display_links = ('shop_name',)
     list_editable = ('score',"info")
 
-admin.site.register(Tag)
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    max_num = 1
+    can_delete = False
+
+
+class UserAdmin(AuthUserAdmin):
+    inlines = [ProfileInline]
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)

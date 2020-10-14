@@ -1,8 +1,9 @@
 from django import forms
-from .models import Category, Pref, User, Review,Tag
+from .models import Category, Pref, User, Review,Tag, Profile
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .widgets import CustomCheckboxSelectMultiple
 from django.conf import settings
+from django.db import models
 """
 from django.core.mail import BadHeadError, send_mail
 from django.http import HttpResponse
@@ -92,3 +93,14 @@ class ContactForm(forms.Form):
             send_mail(subject,message,from_email,recipient_list)
         except BadHeadError:
             return HttpResponse("無効なヘッダが検出されました。")
+
+
+class UserCreateForm(UserCreationForm):
+    pass
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = (
+        "name", "email", "password", "kids_age", "user_register_date", "user_update_date"
+        )
