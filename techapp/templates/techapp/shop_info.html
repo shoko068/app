@@ -50,6 +50,12 @@
             <!-- 平均点の表示を追加　ここまで -->
         </div>
 
+        {% if review_info_baby_chair == 1 %}
+        <div>ベビーチェアあり</div>
+        {% else %}
+        <div>ベビーチェアなし</div>
+        {% endif %}
+
         <div class="col-md-8">
             <p>{{ restaurants_info.0.13|linebreaksbr }}</p>
             <a href="{{ restaurants_info.0.3 }}" class="btn common-btn" target="_blank">お店ページ <i class="fas fa-external-link-alt"></i></a>

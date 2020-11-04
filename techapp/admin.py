@@ -19,9 +19,10 @@ class PrefAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('shop_id', 'shop_name', 'user', 'score',"info")
+    list_display = ('shop_id', 'shop_name', 'user')
+    #list_display = ('shop_id', 'shop_name', 'user','info')
     list_display_links = ('shop_name',)
-    list_editable = ('score',"info")
+    #list_editable = ('info',)
 
 
 class ProfileInline(admin.StackedInline):

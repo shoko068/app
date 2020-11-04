@@ -4,7 +4,8 @@ from django.views.generic.edit import FormView
 
 # [3-4]（１）　インポートの追加ここから
 from .models import Pref, Category, Review
-from .forms import SearchForm, SignUpForm, LoginForm, ReviewForm, SampleForm, ContactForm, ProfileForm, UserCreateForm
+
+from .forms import SearchForm, SignUpForm, LoginForm, SampleForm, ContactForm, ProfileForm, UserCreateForm, ReviewForm
 import json
 import requests
 from django.contrib.auth import login, authenticate
@@ -122,12 +123,15 @@ def ShopInfo(request, restid):
     restaurants_info = extract_restaurant_info(res_list)
 
     review_count = Review.objects.filter(shop_id=restid).count()
+
+    """
     score_ave = Review.objects.filter(shop_id = restid).aggregate(Avg('score'))
     average = score_ave['score__avg']
     if average:
         average_rate = average / 5 * 100
     else:
         average_rate = 0
+    """
 
     if request.method == 'GET':
         review_form = ReviewForm()
@@ -135,7 +139,7 @@ def ShopInfo(request, restid):
 
     else:
         form = ReviewForm(data=request.POST)
-        score = request.POST['score']
+        #score = request.POST['score']
         #追加
         info = request.POST["info"]
         comment = request.POST['comment']
@@ -148,7 +152,7 @@ def ShopInfo(request, restid):
             review.shop_address = restaurants_info[0][7]
             review.image_url = restaurants_info[0][5]
             review.user = request.user
-            review.score = score
+            #review.score = score
             #追加
             review.info = info
             review.comment = comment
@@ -175,10 +179,12 @@ def ShopInfo(request, restid):
         'restaurants_info': restaurants_info,
         'review_form': review_form,
         'review_list': review_list,
-        'average': average,
-        'average_rate': average_rate,
+        #データベースから値をとる
+        'review_info_baby_chair' : 0,
+        #'average': average,
+        #'average_rate': average_rate,
         }
-
+        
     return render (request, 'techapp/shop_info.html', params)
     # 以下を追加、編集　ここまで
 

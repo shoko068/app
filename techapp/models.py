@@ -17,21 +17,34 @@ class Pref(models.Model):
     def __str__(self):
         return str(self.name)
 
-SCORE_CHOICES = [
-    (1, '★'),
-    (2, '★★'),
-    (3, '★★★'),
-    (4, '★★★★'),
-    (5, '★★★★★'),
+BABYCAR_CHOICES = [
+    [0, "ベビーカー入店不可"],
+    [1, "ベビーカー入店可能"]
+    ]
+
+BABYCHAIR_CHOICES = [
+    (0, "ベビーチェア無し"),
+    (1, "ベビーチェア無し")
+    ]
+
+SOFA_CHOICES = [
+    (0, "ソファー席無し"),
+    (1, "ソファー席有り")
+    ]
+
+KIDS_MENU_CHOICES = [
+    (0, "キッズメニュー無し"),
+    (1, "キッズメニュー有り")
 ]
 
-REVIEW_CHOICES = [
-    (1, "ベビーカー入店可能"),
-    (2, "ベビーチェア有り"),
-    (3, "ソファー席あり"),
-    (4, "キッズメニューあり"),
-    (5, "おむつ交換台あり"),
-    (6, "離乳食持ち込み可"),
+DIAPER_CHOICES = [
+    (0, "おむつ交換台無し"),
+    (1, "おむつ交換台有り"),
+]
+
+BABYFOOD_CHOICES = [
+    (0, "離乳食持ち込み不可"),
+    (1, "離乳食持ち込み可能")
 ]
 
 class Review(models.Model):
@@ -40,11 +53,16 @@ class Review(models.Model):
     image_url = models.CharField('画像１URL', max_length=300, blank=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     comment = models.TextField(verbose_name='レビューコメント', blank=False)
-    score = models.PositiveSmallIntegerField(verbose_name='レビュースコア', choices=SCORE_CHOICES, default='3')
-    info = models.PositiveSmallIntegerField(verbose_name='子連れ情報',choices=REVIEW_CHOICES,default='3')
+    babycar_info = models.PositiveSmallIntegerField(verbose_name='ベビーカー情報',choices=BABYCAR_CHOICES,default='0')
+    babychair_info = models.PositiveSmallIntegerField(verbose_name='ベビーチェア情報',choices=BABYCHAIR_CHOICES,default='0')
+    sofa_info = models.PositiveSmallIntegerField(verbose_name='ソファー席情報',choices=SOFA_CHOICES,default='0')
+    kids_menu_info = models.PositiveSmallIntegerField(verbose_name='キッズメニュー情報',choices=KIDS_MENU_CHOICES,default='0')
+    diaper_info = models.PositiveSmallIntegerField(verbose_name='おむつ交換台情報',choices=DIAPER_CHOICES,default='0')
+    babyfood_info = models.PositiveSmallIntegerField(verbose_name='離乳食情報',choices=BABYFOOD_CHOICES,default='0')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+#テーブル更新
 
 
     class Meta:
@@ -52,10 +70,6 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.shop_id)
-
-    def get_percent(self):
-        percent = round(self.score / 5 * 100)
-        return percent
 
 class Tag(models.Model):
     name = models.CharField('タグ名', max_length=100)
