@@ -47,7 +47,7 @@ class LoginForm(AuthenticationForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['comment']
+        fields = ['babycar_info', 'babychair_info', 'sofa_info','kids_menu_info','diaper_info','babyfood_info','comment']
         #fields = ['comment', 'info']
 
 class SampleForm(forms.Form):

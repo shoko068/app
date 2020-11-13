@@ -23,7 +23,7 @@ BABYCAR_CHOICES = [
     ]
 
 BABYCHAIR_CHOICES = [
-    (0, "ベビーチェア無し"),
+    (0, "ベビーチェア有り"),
     (1, "ベビーチェア無し")
     ]
 
@@ -62,11 +62,9 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-#テーブル更新
-
-
     class Meta:
         unique_together = ('shop_id', 'user')
+        db_table = 'Reviews'
 
     def __str__(self):
         return str(self.shop_id)
