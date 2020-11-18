@@ -37,7 +37,8 @@
                 </a>
             </div>
             <br>
-            <!-- 平均点の表示を追加　ここから -->
+
+            <!-- 平均点の表示を追加　ここから
             {% if not average_rate == 0 %}
             <p>ユーザーによる評価</p>
             <div class="star-rating">
@@ -47,8 +48,11 @@
             {% else %}
             <p>　(まだ評価はありません。最初のレビューをお願いします！)</p>
             {% endif %}
-            <!-- 平均点の表示を追加　ここまで -->
+            """
+            平均点の表示を追加　ここまで -->
         </div>
+
+
 
         <div class="col-md-8">
             <p>{{ restaurants_info.0.13|linebreaksbr }}</p>
@@ -101,6 +105,18 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="section-title">口コミ情報</h2>
+
+            {% if review_info_baby_chair == 1 %}
+            #image yellow star
+            <img src="">
+            <div>ベビーチェアあり</div>
+            {% else %}
+            #image gray star
+            <img src="">
+            <div>ベビーチェアなし</div>
+            {% endif %}
+
+
             {% if review_list %}
                 <h3>レビューコメント</h3>
                 {% for item in review_list %}
@@ -111,10 +127,12 @@
                         </div>
                         <div class="chatting">
                             <div class="says">
+                              <!--
                                 <div class="star-rating">
                                     <div class="star-rating-front" style="width: {{ item.get_percent }}%">★★★★★</div>
                                     <div class="star-rating-back">★★★★★</div>
                                 </div>
+                              --->
                                 <br>
                                 <p>{{ item.comment }}</p>
                                 <p class="small">{{ item.created_at }}</p>
@@ -131,35 +149,19 @@
             <h3>レビューを投稿する</h3>
             {% if user.is_authenticated %}
                 <form class="login-form" action="" method="POST">
-                    {{ review_form.non_field_errors }}
-                    <div class="evaluation" style="float:left;">
-                        <input id="score1" type="radio" name="score" value="5" />
-                        <label for="score1"><span class="text">最高</span>★</label>
-                        <input id="score2" type="radio" name="score" value="4" />
-                        <label for="score2"><span class="text">良い</span>★</label>
-                        <input id="score3" type="radio" name="score" value="3" />
-                        <label for="score3"><span class="text">普通</span>★</label>
-                        <input id="score4" type="radio" name="score" value="2" />
-                        <label for="score4"><span class="text">悪い</span>★</label>
-                        <input id="score5" type="radio" name="score" value="1" />
-                        <label for="score5"><span class="text">最悪</span>★</label>
-                    </div>
-                    <br><br><br>
-
-                <form class="login-form" action="" method="POST">
                   {{ review_form.non_field_errors }}
             　　　　<div class="evaluation" style="float:left;">
-              　　　　　<input id="score1" type="radio" name="score" value="5" />
+              　　　　　<input id="score1" type="checkbox" name="score" value="1" />
                 　　　　<label for="score1"><span class="text">"ベビーカー入店可能"</span>★</label>
-                　　　　<input id="score2" type="radio" name="score" value="4" />
+                　　　　<input id="score2" type="checkbox" name="score" value="2" />
                 　　　　<label for="score2"><span class="text">"ベビーチェア有り"</span>★</label>
-                　　　　<input id="score3" type="radio" name="score" value="3" />
+                　　　　<input id="score3" type="checkbox" name="score" value="3" />
                 　　　　<label for="score3"><span class="text">"ソファー席あり"</span>★</label>
-                　　　　<input id="score4" type="radio" name="score" value="2" />
+                　　　　<input id="score4" type="checkbox" name="score" value="4" />
                 　　　　<label for="score4"><span class="text">"キッズメニューあり"</span>★</label>
-                　　　　<input id="score5" type="radio" name="score" value="1" />
-                　　　　<label for="score5"><span class="text">"おむつ交換台あり"</span>★</label>
-                       <input id="score6" type="radio" name="score" value="0" />
+                　　　　<input id="score5" type="checkbox" name="score" value="5" />
+                　　　　<label for="score5"><span class="text">"おむつ交換台ありなし"</span>★</label>
+                       <input id="score6" type="checkbox" name="score" value="6" />
                 　　　  <label for="score6"><span class="text">"離乳食持ち込み可"</span>★</label>
             　　　　</div>
             　　　　<br><br><br>

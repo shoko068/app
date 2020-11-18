@@ -10,7 +10,7 @@ import json
 import requests
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView,LogoutView
-#from django.db.models import Avg
+from django.db.models import Avg
 from django.contrib import messages
 from django.urls import reverse_lazy
 
@@ -141,12 +141,7 @@ def ShopInfo(request, restid):
         form = ReviewForm(data=request.POST)
         #score = request.POST['score']
         #追加
-        babycar_info = request.POST['babycar_info']
-        babychair_info = babychair_info = request.POST['babychair_info']
-        sofa_info = sofa_info = request.POST['sofa_info']
-        kids_menu_info = kids_menu_info = request.POST['kids_menu_info']
-        diaper_info = diaper_info = request.POST['diaper_info']
-        babyfood_info = babyfood_info = request.POST['babyfood_info']
+        info = request.POST["info"]
         comment = request.POST['comment']
 
         if form.is_valid():
@@ -159,12 +154,7 @@ def ShopInfo(request, restid):
             review.user = request.user
             #review.score = score
             #追加
-            review.babycar_info = babycar_info
-            review.babychair_info = babychair_info
-            review.sofa_info = sofa_info
-            review.kids_menu_info = kids_menu_info
-            review.diaper_info = diaper_info
-            review.babyfood_info = babyfood_info
+            review.info = info
             review.comment = comment
             is_exist = 0
             is_exist = Review.objects.filter(shop_id = review.shop_id).filter(user = review.user).count()
@@ -182,26 +172,19 @@ def ShopInfo(request, restid):
             return redirect('techapp:shop_info', restid)
         return render(request, 'techapp/index.html', {})
 
-    result = Review.objects.get(id=g025013)
-
 
     params = {
-          'title': '店舗詳細',
-          'review_count': review_count,
-          'restaurants_info': restaurants_info,
-          'review_form': review_form,
-          'review_list': review_list,
-          'review_info_baby_car' : 0,
-          'review_info_baby_chair' : 0,
-          'review_info_sofa' : 0,
-          'review_info_kids_menu' : 0,
-          'review_info_diaper' : 0,
-          'review_info_babyfoCNod' : 0,
-          }
-
-
+        'title': '店舗詳細',
+        'review_count': review_count,
+        'restaurants_info': restaurants_info,
+        'review_form': review_form,
+        'review_list': review_list,
+        #データベースから値をとる
+        'review_info_baby_chair' : 0,
         #'average': average,
         #'average_rate': average_rate,
+        }
+        
     return render (request, 'techapp/shop_info.html', params)
     # 以下を追加、編集　ここまで
 

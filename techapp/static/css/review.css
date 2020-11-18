@@ -86,13 +86,16 @@ textarea {
   font-size: 12px;
   color: gray;
 }
+/*
 .evaluation label:hover,
 .evaluation label:hover ~ label,
-.evaluation input[type='radio']:checked ~ label{
-  color: #ffcc33;
+*/
+.evaluation input[type='checkbox']:checked ~ label{
+  /*color: #ffcc33;*/
+  color: red;
 }
 
-/* スコア表示の★ */
+/* スコア表示の★
 .star-rating {
   position: relative;
   width: 5em;
@@ -110,7 +113,7 @@ textarea {
 .star-rating-back {
   color: #ccc;
 }
-
+*/
 .custom-checkbox {
   display: none;
 }
@@ -132,7 +135,8 @@ textarea {
   font-size: 14px;
   margin: 3px;
 }
-
+/*
 .custom-checkbox-label:hover {
   opacity: 0.5;
 }
+*/

@@ -2,11 +2,20 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = ''
+SECRET_KEY = '!$p@0nhnw%fkql36xg46^5z9sz7=02y1w)@4nxghl5qf_#b(5$'
 
+#要注意！
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+"""
+EMAIL_HOST = ''
+EMAIL_HOST_USER = 'メールアドレス'
+EMAIL_HOST_PASSWORD = 'アプリ パスワード'
+EMAIL_PORT = 587
+EMAIL USE_SSL = True
+"""
 
 INSTALLED_APPS = [
     'django.contrib.admin',
